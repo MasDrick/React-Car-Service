@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
 import { mockOrders, mockServices, delay } from '@/api/mockData';
 
 export type OrderStatus = 'new' | 'in_progress' | 'ready' | 'completed';
