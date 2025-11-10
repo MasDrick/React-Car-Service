@@ -97,6 +97,7 @@ export const OrdersTab = () => {
   };
 
   const isOrderCancelled = (status: string): boolean => status === 'cancelled';
+  const cannotBeCancelled = (status: string): boolean => !['new', 'in_progress'].includes(status);
 
   return (
     <div className="space-y-6">
@@ -232,7 +233,10 @@ export const OrdersTab = () => {
                           <SelectItem value="completed" disabled={cancelled}>
                             Завершён
                           </SelectItem>
-                          <SelectItem value="cancelled" disabled={cancelled}>
+                          <SelectItem
+                            value="cancelled"
+                            disabled={cancelled || cannotBeCancelled(order.status)}
+                          >
                             Отменён
                           </SelectItem>
                         </SelectContent>
