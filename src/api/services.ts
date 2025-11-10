@@ -1,5 +1,5 @@
 import { apiClient } from './axios';
-import type { Service } from '@/store/slices/servicesSlice';
+import type { Service } from '@/types';
 
 export const servicesApi = {
   getServices: async () => {
