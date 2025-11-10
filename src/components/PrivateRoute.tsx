@@ -1,10 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '@/store/hooks';
-
-interface PrivateRouteProps {
-  children: React.ReactNode;
-  requiredRole?: 'client' | 'admin';
-}
+import type { PrivateRouteProps } from '@/types';
 
 export const PrivateRoute = ({ children, requiredRole }: PrivateRouteProps) => {
   const { isAuthenticated, user } = useAppSelector(state => state.auth);

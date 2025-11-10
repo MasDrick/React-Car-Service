@@ -1,5 +1,4 @@
-import type { Service } from '@/store/slices/servicesSlice';
-import type { Order } from '@/store/slices/ordersSlice';
+import type { Service, Order } from '@/types';
 
 // Моковые данные для услуг
 export const mockServices: Service[] = [
@@ -63,6 +62,7 @@ export const mockOrders: Order[] = [
     date: '2024-01-15T10:00:00',
     status: 'new',
     created_at: '2024-01-10T12:00:00',
+    notes: 'Попросить проверить фильтр',
   },
   {
     id: 2,
@@ -72,6 +72,43 @@ export const mockOrders: Order[] = [
     date: '2024-01-20T14:00:00',
     status: 'in_progress',
     created_at: '2024-01-12T10:00:00',
+  },
+  {
+    id: 3,
+    service_id: 3,
+    service_name: 'Замена тормозных колодок',
+    user_id: 2,
+    date: '2024-01-18T09:00:00',
+    status: 'new',
+    created_at: '2024-01-13T15:30:00',
+    notes: 'Срочно',
+  },
+  {
+    id: 4,
+    service_id: 4,
+    service_name: 'Шиномонтаж',
+    user_id: 2,
+    date: '2024-01-22T11:00:00',
+    status: 'ready',
+    created_at: '2024-01-14T10:00:00',
+  },
+  {
+    id: 5,
+    service_id: 5,
+    service_name: 'Замена аккумулятора',
+    user_id: 1,
+    date: '2024-01-16T13:00:00',
+    status: 'completed',
+    created_at: '2024-01-11T09:00:00',
+  },
+  {
+    id: 6,
+    service_id: 6,
+    service_name: 'Промывка системы охлаждения',
+    user_id: 3,
+    date: '2024-01-25T10:00:00',
+    status: 'in_progress',
+    created_at: '2024-01-15T14:00:00',
   },
 ];
 

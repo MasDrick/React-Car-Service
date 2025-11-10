@@ -1,10 +1,11 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, LogOut } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { logout } from '@/store/slices/authSlice';
 import { ModeToggle } from '@/components/mode-toggle';
+import { NavUser } from '@/components/NavUser.tsx';
 
 const Header = () => {
   const location = useLocation();
@@ -17,12 +18,12 @@ const Header = () => {
     navigate('/login');
   };
 
-  const navLinks = [
-    { to: '/services', label: 'Услуги' },
-    { to: '/orders', label: 'Мои заказы' },
-  ];
+  const navLinks = [{ to: '/services', label: 'Услуги' }];
 
-  if (user?.role === 'admin') {
+  // Для клиентов добавляем "Мои заказы", для админов - "Админ"
+  if (user?.role === 'client') {
+    navLinks.push({ to: '/orders', label: 'Мои заказы' });
+  } else if (user?.role === 'admin') {
     navLinks.push({ to: '/admin', label: 'Админ' });
   }
 
@@ -30,7 +31,7 @@ const Header = () => {
     <header className="w-full border-b border-border bg-card shadow-sm sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between p-4">
         {/* ЛОГОТИП */}
-        <Link to="/services" className="text-2xl font-bold text-white">
+        <Link to="/services" className="text-2xl font-bold text-card-foreground">
           <div className="flex items-center gap-2 h">
             <img className="h-9" src="/car_logo.svg" alt="" />
             <h1>Автосервис</h1>
@@ -54,21 +55,11 @@ const Header = () => {
           </nav>
         )}
 
-        {/* КНОПКА ВХОДА / ВЫХОДА */}
+        {/* пользователь */}
         <div className="hidden md:flex items-center gap-4">
-          <ModeToggle />
           {isAuthenticated ? (
             <>
-              <Link
-                to="/profile"
-                className="text-sm font-medium text-foreground hover:text-primary"
-              >
-                {user?.username}
-              </Link>
-              <Button variant="outline" onClick={handleLogout}>
-                <LogOut className="h-4 w-4 mr-2" />
-                Выйти
-              </Button>
+              <NavUser user={user} onLogout={handleLogout} />
             </>
           ) : (
             <Button variant="outline" asChild>
@@ -103,16 +94,7 @@ const Header = () => {
                         {link.label}
                       </Link>
                     ))}
-                    <Link
-                      to="/profile"
-                      className="text-sm font-medium text-foreground hover:text-primary"
-                    >
-                      Профиль
-                    </Link>
-                    <Button variant="outline" onClick={handleLogout} className="mt-4">
-                      <LogOut className="h-4 w-4 mr-2" />
-                      Выйти
-                    </Button>
+                    <NavUser user={user} onLogout={handleLogout} />
                   </>
                 ) : (
                   <Button variant="outline" asChild>

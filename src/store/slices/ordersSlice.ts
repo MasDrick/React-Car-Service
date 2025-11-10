@@ -1,17 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { mockOrders, mockServices, delay } from '@/api/mockData';
-
-export type OrderStatus = 'new' | 'in_progress' | 'ready' | 'completed';
-
-export interface Order {
-  id: number;
-  service_id: number;
-  service_name: string;
-  user_id: number;
-  date: string;
-  status: OrderStatus;
-  created_at: string;
-}
+import type { Order, OrderStatus, CreateOrderPayload } from '@/types';
+import type { RootState } from '@/store/store';
 
 interface OrdersState {
   orders: Order[];
@@ -33,20 +23,25 @@ export const fetchOrders = createAsyncThunk('orders/fetchOrders', async () => {
 
 export const createOrder = createAsyncThunk(
   'orders/createOrder',
-  async (orderData: { service_id: number; date: string }) => {
+  async (orderData: CreateOrderPayload, { getState }) => {
     await delay(300);
     const service = mockServices.find(s => s.id === orderData.service_id);
     if (!service) {
       throw new Error('Услуга не найдена');
     }
+
+    const state = getState() as RootState;
+    const userId = state.auth.user?.id ?? 1;
+
     const newOrder: Order = {
       id: Math.max(...mockOrders.map(o => o.id), 0) + 1,
       service_id: orderData.service_id,
       service_name: service.name,
-      user_id: 1, // Временно, потом из auth
+      user_id: userId,
       date: orderData.date,
       status: 'new',
       created_at: new Date().toISOString(),
+      notes: orderData.notes?.trim() || undefined,
     };
     mockOrders.push(newOrder);
     return newOrder;

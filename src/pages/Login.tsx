@@ -17,8 +17,10 @@ const Login = () => {
     const mockUser = {
       id: 1,
       username: username || 'testuser',
-      email: `${username || 'testuser'}@example.com`,
+      email: `${username || 'testuser'}`,
       role: username === 'admin' ? ('admin' as const) : ('client' as const),
+      avatar:
+        'https://avatars.mds.yandex.net/i?id=41868f0fe041dbb1ffc546dc2c90f86c_l-10805295-images-thumbs&n=13',
     };
 
     const mockToken = 'mock_token_' + Date.now();
@@ -33,6 +35,10 @@ const Login = () => {
       username: role === 'admin' ? 'admin' : 'client',
       email: `${role}@example.com`,
       role,
+      avatar:
+        role === 'admin'
+          ? 'https://i.pinimg.com/474x/18/ee/50/18ee5057f47adb0f9e03f4ee9773ae7a.jpg'
+          : 'https://i.pinimg.com/736x/f0/cc/cb/f0cccbf21474307d4a3ff8fde01e3a66.jpg',
     };
 
     const mockToken = 'mock_token_' + Date.now();

@@ -1,21 +1,5 @@
 import { apiClient } from './axios';
-import type { User } from '@/store/slices/authSlice';
-
-export interface LoginRequest {
-  username: string;
-  password: string;
-}
-
-export interface RegisterRequest {
-  username: string;
-  email: string;
-  password: string;
-}
-
-export interface AuthResponse {
-  user: User;
-  token: string;
-}
+import type { LoginRequest, RegisterRequest, AuthResponse } from '@/types';
 
 export const authApi = {
   login: async (data: LoginRequest) => {

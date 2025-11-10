@@ -1,14 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { mockServices, delay } from '@/api/mockData';
-
-export interface Service {
-  id: number;
-  name: string;
-  price: number;
-  img: string;
-  duration: number; // в минутах
-  description?: string;
-}
+import type { Service } from '@/types';
 
 interface ServicesState {
   services: Service[];

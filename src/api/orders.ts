@@ -1,5 +1,5 @@
 import { apiClient } from './axios';
-import type { Order, OrderStatus } from '@/store/slices/ordersSlice';
+import type { Order, OrderStatus, CreateOrderPayload } from '@/types';
 
 export const ordersApi = {
   getOrders: async () => {
@@ -7,7 +7,7 @@ export const ordersApi = {
     return response;
   },
 
-  createOrder: async (data: { service_id: number; date: string }) => {
+  createOrder: async (data: CreateOrderPayload) => {
     const response = await apiClient.post<Order>('/orders', data);
     return response;
   },
